@@ -100,7 +100,7 @@ export default {
   },
   props: {
     el: {
-      type: HTMLElement, // Object
+      type: Object,
       required: true
     },
     type: {
