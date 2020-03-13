@@ -1,5 +1,5 @@
 {
-  "name": "v-builder",
+  "name": "@iboldurev/v-builder",
   "version": "0.0.1",
   "description": "Vue.js Page Builder",
   "author": "Ivan Boldyrev <iboldurev@gmail.com>",
@@ -66,13 +66,14 @@
     "webpack-dev-server": "^3.1.5"
   },
   "dependencies": {
-    "@baianat/base.framework": "^2.0.0-beta.0",
     "intersection-observer": "^0.5.0",
     "jszip": "^3.1.4",
     "lodash-es": "^4.17.4",
+    "normalize.css": "^8.0.1",
     "popper.js": "^1.14.4",
     "save-as": "^0.1.8",
     "sortablejs": "^1.6.1",
+    "tailwindcss": "^1.2.0",
     "vue-server-renderer": "2.5.17"
   },
   "license": "MIT",

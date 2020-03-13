@@ -248,6 +248,7 @@ class VBuilder {
         <html>
           <head>
             <title>${this.title}</title>
+            <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
             <link href="${this.assets.css}" rel="stylesheet">
           </head>
           <body>

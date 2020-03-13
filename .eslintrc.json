@@ -3,7 +3,6 @@
         "standard",
         "plugin:vue/recommended"
     ],
-
     "rules": {
         "semi": "off",
         "no-new": "off",

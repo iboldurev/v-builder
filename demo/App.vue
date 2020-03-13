@@ -1,14 +1,14 @@
 <template>
-  <!-- <v-builder
+  <v-builder
     :show-intro="true"
     :show-add-control="true"
     :show-sort-control="false"
-    :show-clear-control="false"
-    :data="{ title: 'Agency Page', sections }"
+    :show-clear-control="true"
+    :data="{ title: 'Demo Page', sections }"
     export-text="Preview"
     @saved="onSave"
-  /> -->
-  <v-renderer :data="{ title: 'Agency Page', sections }" />
+  />
+  <!-- <v-renderer :data="{ title: 'Demo Page', sections }" /> -->
 </template>
 
 <script>
@@ -18,27 +18,13 @@ export default {
     return {
       sections: [
         {
-          name: 'Demo',
+          name: 'Section1',
           data: {
-            classes: [],
-            columns: [
-              {
-                title: 'demo',
-                content: 100
-              },
-              {
-                title: 'demo',
-                content: 100
-              },
-              {
-                title: 'demo',
-                content: 100
-              },
-              {
-                title: 'demo',
-                content: 100
-              }
-            ]
+            avatar: './img/avatar.jpg',
+            name: 'Erin Lindford',
+            role: 'Customer Support',
+            email: 'erinlindford@example.com',
+            phone: '(555) 765-4321'
           }
         }
       ]

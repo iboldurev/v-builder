@@ -1,19 +1,14 @@
 export class Avatar {};
-
 export class Title {};
-
 export class Text {};
-
-export class Logo {};
-
 export class Image {};
-
 export class Quote {};
-
 export class Link {};
-
 export class ClassList {};
-
 export class Button {};
-
-export class Grid { };
+export class Grid {};
+export class Name {};
+export class Role {};
+export class Email {};
+export class Phone {};
+export class Cover {};

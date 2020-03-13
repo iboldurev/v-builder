@@ -262,105 +262,120 @@ export default {
 };
 </script>
 
-<style lang="stylus">
-@import '~@baianat/base.framework/src/stylus/util/colors'
-
-.styler
-  position: absolute
-  top: 0
-  z-index: 200
-  visibility: hidden
-  opacity: 0
-  margin: 10px 0
-  padding: 5px
-  background: $dark
-  border-radius: 26px
-  display: flex
-  flex-direction: column
-  justify-content: center
-  align-items: center
-  &-list
-    display: flex
-    justify-content: center
-    align-items: center
-    list-style: none
-    margin: 0
-    padding: 0
-  &-input
-    background: $white
-    color: $dark
-    border: 0
-    outline: 0
-    width: 40px
-    height: 40px
-    border-radius: 42px
-    margin: 0 5px 0 0
-    text-align: center
-    -webkit-appearance: none
-    -moz-appearance: textfield
-    appearance: none
-  &-button
-    display: flex
-    justify-content: center
-    align-items: center
-    outline: 0
-    background: $dark
-    border: 0
-    fill: $white
-    color: $white
-    width: 42px
-    height: 42px
-    border-radius: 42px
-    margin: 0 5px 0 0
-    &:hover
-      background: darken($dark, 20%)
-    &:first-child
-      margin-left: 5px
-  &-selector
-    margin: 0 5px
-  &.is-visible
-    visibility: visible
-    opacity: 1
-  .input-group
-    margin: 5px
-
-.align
-  @extend .styler-list
-  height: 42px
-
-.colorer
-  @extend .styler-list
-  height: 42px
-  li >input
-    -webkit-appearance: none
-    -moz-appearance: textfield
-    appearance: none
-    width: 30px
-    height: 30px
-    border-radius: 40px
-    border: 4px solid darken($dark, 20%)
-    margin: 0 5px
-    outline: none
-    &:checked
-      border-color: lighten($dark, 20%)
-    &:hover
-      border-color: lighten($dark, 20%)
-    &#colorRed
-      background $red
-    &#colorBlue
-      background $blue
-    &#colorGreen
-      background $green
-    &#colorBlack
-      background $black
-    &#colorWhite
-      background $white
-
-.is-hidden
-  display: none
-
-input[type=number]::-webkit-inner-spin-button
-input[type=number]::-webkit-outer-spin-button
-  -webkit-appearance: none
-  margin: 0
+<style>
+  .styler {
+    position: absolute;
+    top: 0;
+    z-index: 200;
+    visibility: hidden;
+    opacity: 0;
+    margin: 10px 0;
+    padding: 5px;
+    background: #323c47;
+    border-radius: 26px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .styler-list,
+  .align,
+  .colorer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .styler-input {
+    background: #fff;
+    color: #323c47;
+    border: 0;
+    outline: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 42px;
+    margin: 0 5px 0 0;
+    text-align: center;
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+    appearance: none;
+  }
+  .styler-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    outline: 0;
+    background: #323c47;
+    border: 0;
+    fill: #fff;
+    color: #fff;
+    width: 42px;
+    height: 42px;
+    border-radius: 42px;
+    margin: 0 5px 0 0;
+  }
+  .styler-button:hover {
+    background: #283039;
+  }
+  .styler-button:first-child {
+    margin-left: 5px;
+  }
+  .styler-selector {
+    margin: 0 5px;
+  }
+  .styler.is-visible {
+    visibility: visible;
+    opacity: 1;
+  }
+  .styler .input-group {
+    margin: 5px;
+  }
+  .align {
+    height: 42px;
+  }
+  .colorer {
+    height: 42px;
+  }
+  .colorer li >input {
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+    appearance: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 40px;
+    border: 4px solid #283039;
+    margin: 0 5px;
+    outline: none;
+  }
+  .colorer li >input:checked {
+    border-color: #526375;
+  }
+  .colorer li >input:hover {
+    border-color: #526375;
+  }
+  .colorer li >input#colorRed {
+    background: #ff3d3d;
+  }
+  .colorer li >input#colorBlue {
+    background: #0072ff;
+  }
+  .colorer li >input#colorGreen {
+    background: #18d88b;
+  }
+  .colorer li >input#colorBlack {
+    background: #000;
+  }
+  .colorer li >input#colorWhite {
+    background: #fff;
+  }
+  .is-hidden {
+    display: none;
+  }
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 </style>

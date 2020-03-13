@@ -40,8 +40,7 @@ const config = {
     new FriendlyErrorsWebpackPlugin(),
     new ProgressBarPlugin(),
     new CopyWebpackPlugin([{ from: path.join(__dirname, 'img'), to: './img/' }]),
-    page('index'),
-    page('render')
+    page('index')
   ],
   watchOptions: {
     aggregateTimeout: 300,

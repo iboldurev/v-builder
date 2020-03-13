@@ -74,7 +74,7 @@
         .menu-body
           template(v-for="section in group")
             a.menu-element(
-              @click="addSection(section)"
+              @click="addSection(section); toggleListVisibility()"
               @drag="currentSection = section"
             )
               img.menu-elementImage(v-if="section.cover" :src="section.cover")
@@ -199,8 +199,6 @@ export default {
     },
     addSection (section, position) {
       this.$builder.add(section, position);
-
-      this.toggleListVisibility();
     },
     clearSections () {
       this.tempSections = this.$builder.clear();
@@ -282,184 +280,218 @@ export default {
 };
 </script>
 
-<style lang="stylus">
-@import '../stylus/_app.styl'
-
-.artboard
-  transform-origin: top center
-  &.is-editable .is-editable
-    outline: none
-    &:hover
-      box-shadow: inset 0 0 0 2px $gray
-.controller
-  box-sizing: border-box
-  &-panel
-    position: fixed
-    z-index: 200
-    bottom: 30px
-    right: 40px
-  &-input
-    outline: none
-    border: 1px solid $gray
-    padding: 0.5em 1em
-    margin: 20px 0
-    border-radius: 40px
-    width: 100%
-    font-size: 16px
-    &:focus
-      border-color: $blue
-      box-shadow: 0 0 0 2px alpha($blue, 50%)
-  &-button
-    transition: 0.2s
-    border: none
-    outline: none
-    border-radius: 20px
-    padding: 5px
-    color: $white
-    fill: $white
-    font-size: 16px
-    svg
-      transition: 0.2s
-    &:not(:last-child)
-      margin-right: 20px
-    &.is-rotated >svg
-      transform: rotate(45deg)
-    &:hover
-      @extends $floatHover
-    &.is-blue
-      background-color: $blue
-      &:hover
-        background-color: darken($blue, 20%)
-    &.is-red
-      background-color: $red
-      &:hover
-        background-color: darken($red, 20%)
-    &.is-green
-      background-color: $green
-      &:hover
-        background-color: darken($green, 20%)
-    &.is-dark
-      background-color: $dark
-      &:hover
-        background-color: darken($dark, 20%)
-    &.is-gray
-      background-color: $gary
-      &:hover
-        background-color: darken($gray, 20%)
-  &-intro
-    width: 100%
-    max-width: 500px
-    margin: auto
-    display: flex
-    justify-content: center
-    align-items: center
-    flex-direction: column
-    padding: 70px 50px
-    text-align: center
-    font-size: 30px
-    color: $dark
-
-  &-themes
-    display: flex
-    flex-direction: column
-    width: 100%
-
-  &-theme
-    background-color: $white
-    color: $dark
-    border: 1px solid $gray
-    margin: 5px
-    padding: 20px
-    border-radius: 4px
-    width: 100%
-    cursor: pointer
-    font-size: 16px
-    &:hover
-      border-color: $blue
-.menu
-  user-select: none
-  -moz-user-select: none
-  position: fixed
-  z-index 300
-  top: 0
-  left: 0
-  bottom: 0
-  margin: 0
-  width: 250px
-  background: $white
-  padding: 20px 10px
-  display: flex
-  flex-direction: column
-  overflow-y: auto
-  list-style: none
-  transition: 0.4s
-  box-shadow: 1px 0 10px alpha($dark, 20%)
-  transform: translate3d(-100%, 0, 0)
-  &.is-visiable
-    transform: translate3d(0, 0, 0)
-  &-body
-    display: none
-    padding: 0
-    margin: 0
-    list-style: none
-    ~/-group &
-      width: 90%
-      margin: 10px auto
-    ~/-group.is-visiable &
-      display: block
-  &-icon
-    width: 24px
-    height: 24px
-    fill: $gray
-    transition: 0.2s
-    ~/-group.is-visiable &
-      transform: rotate(180deg)
-
-  &-element
-    position: relative
-    display: flex
-    justify-content: center
-    align-items: center
-    width: 100%
-    min-height: 50px
-    border-radius: 5px
-    background: darken($gray, 10%)
-    transition: 0.3s
-    cursor: pointer
-    color: $white
-    overflow: hidden
-    user-select: none
-    -moz-user-select: none
-    &:not(:last-child)
-      margin-bottom: 10px
-    &:hover
-      @extends $floatHover
-
-  &-elementImage
-    max-width: 100%
-    pointer-events: none
-    +
-      ~/-elementTitle
-        position: absolute
-        right: 0
-        bottom: 0
-        left: 0
-        text-shadow: 1px 1px 2px alpha($black, 80%)
-        text-align: center
-        padding: 5px
-
-  &-header
-    display: flex
-    justify-content: space-between
-    align-items: center
-    padding: 10px 5px
-    border-bottom: 1px solid alpha($black, 5%)
-
-.sortable-ghost
-  opacity: 0.3
-  box-shadow: 0 0 2px 1px $blue
-
-.is-editable
-  &:hover
-    box-shadow: inset 0 0 0 2px $gray
+<style>
+  .v-builder-icon {
+    display: block;
+    width: 20px;
+    height: 20px;
+  }
+  .controller-button:hover,
+  .menu-element:hover {
+    cursor: pointer;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.125), 0 10px 10px rgba(0,0,0,0.1);
+  }
+  .artboard {
+    transform-origin: top center;
+  }
+  .artboard.is-editable .is-editable {
+    outline: none;
+  }
+  .artboard.is-editable .is-editable:hover {
+    box-shadow: inset 0 0 0 2px #c1c1c1;
+  }
+  .controller {
+    box-sizing: border-box;
+  }
+  .controller-panel {
+    position: fixed;
+    z-index: 200;
+    bottom: 30px;
+    right: 40px;
+  }
+  .controller-input {
+    outline: none;
+    border: 1px solid #c1c1c1;
+    padding: 0.5em 1em;
+    margin: 20px 0;
+    border-radius: 40px;
+    width: 100%;
+    font-size: 16px;
+  }
+  .controller-input:focus {
+    border-color: #0072ff;
+    box-shadow: 0 0 0 2px rgba(0,114,255,0.5);
+  }
+  .controller-button {
+    transition: 0.2s;
+    border: none;
+    outline: none;
+    border-radius: 20px;
+    padding: 5px;
+    color: #fff;
+    fill: #fff;
+    font-size: 16px;
+  }
+  .controller-button svg {
+    transition: 0.2s;
+  }
+  .controller-button:not(:last-child) {
+    margin-right: 20px;
+  }
+  .controller-button.is-rotated >svg {
+    transform: rotate(45deg);
+  }
+  .controller-button.is-blue {
+    background-color: #0072ff;
+  }
+  .controller-button.is-blue:hover {
+    background-color: #005bcc;
+  }
+  .controller-button.is-red {
+    background-color: #ff3d3d;
+  }
+  .controller-button.is-red:hover {
+    background-color: #fd0000;
+  }
+  .controller-button.is-green {
+    background-color: #18d88b;
+  }
+  .controller-button.is-green:hover {
+    background-color: #13ad6f;
+  }
+  .controller-button.is-dark {
+    background-color: #323c47;
+  }
+  .controller-button.is-dark:hover {
+    background-color: #283039;
+  }
+  .controller-button.is-gray {
+    background-color: $gary;
+  }
+  .controller-button.is-gray:hover {
+    background-color: #9a9a9a;
+  }
+  .controller-intro {
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 70px 50px;
+    text-align: center;
+    font-size: 30px;
+    color: #323c47;
+  }
+  .controller-themes {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .controller-theme {
+    background-color: #fff;
+    color: #323c47;
+    border: 1px solid #c1c1c1;
+    margin: 5px;
+    padding: 20px;
+    border-radius: 4px;
+    width: 100%;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  .controller-theme:hover {
+    border-color: #0072ff;
+  }
+  .menu {
+    user-select: none;
+    -moz-user-select: none;
+    position: fixed;
+    z-index: 300;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    margin: 0;
+    width: 250px;
+    background: #fff;
+    padding: 20px 10px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    list-style: none;
+    transition: 0.4s;
+    box-shadow: 1px 0 10px rgba(50,60,71,0.2);
+    transform: translate3d(-100%, 0, 0);
+  }
+  .menu.is-visiable {
+    transform: translate3d(0, 0, 0);
+  }
+  .menu-body {
+    display: none;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+  .menu-group .menu-body {
+    width: 90%;
+    margin: 10px auto;
+  }
+  .menu-group.is-visiable .menu-body {
+    display: block;
+  }
+  .menu-icon {
+    width: 24px;
+    height: 24px;
+    fill: #c1c1c1;
+    transition: 0.2s;
+  }
+  .menu-group.is-visiable .menu-icon {
+    transform: rotate(180deg);
+  }
+  .menu-element {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 50px;
+    border-radius: 5px;
+    background: #aeaeae;
+    transition: 0.3s;
+    cursor: pointer;
+    color: #fff;
+    overflow: hidden;
+    user-select: none;
+    -moz-user-select: none;
+  }
+  .menu-element:not(:last-child) {
+    margin-bottom: 10px;
+  }
+  .menu-elementImage {
+    max-width: 100%;
+    pointer-events: none;
+  }
+  .menu-elementTitle {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+    text-align: center;
+    padding: 5px;
+  }
+  .menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 5px;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+  }
+  .sortable-ghost {
+    opacity: 0.3;
+    box-shadow: 0 0 2px 1px #0072ff;
+  }
+  .is-editable:hover {
+    box-shadow: inset 0 0 0 2px #c1c1c1;
+  }
 </style>
