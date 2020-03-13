@@ -1,54 +1,49 @@
 # Section
 
 A section is the building block of the page, below is an example of a header section.
-::: tip
-  Examples use [pug](https://pugjs.org) template language to make it easier to work with templates.
-:::
 
-```pug
-<template lang="pug">
-  section.header(
-    v-styler="$sectionData.classes"
-    :class="[{'is-editable': $builder.isEditing}, $sectionData.classes]"
-  )
-    .container
-      .grid
-        .column.is-desktop-6.add-center-vertical
-          h3.header-title(
-            :class="{'is-editable': $builder.isEditing}"
-            v-html="$sectionData.title"
-            v-styler="$sectionData.title"
-          )
-          p.header-content(
-            :class="{'is-editable': $builder.isEditing}"
-            v-html="$sectionData.content"
-            v-styler="$sectionData.content"
-          )
-          a.button(
-            :class="[{'is-editable': $builder.isEditing}, $sectionData.button.classes]"
-            :href="$sectionData.button.href"
-            v-html="$sectionData.button.text"
-            v-styler="$sectionData.button"
-          )
-        .column.is-desktop-6
-          uploader(
-            class="header-image"
-            path="$sectionData.images[0]"
-          )
+```vue
+<template>
+  <div class="bg-gray-300 p-3">
+    <div class="md:flex bg-white rounded-lg p-6">
+      <uploader
+        class="h-16 w-16 md:h-24 md:w-24 rounded-full mx-auto md:mx-0 md:mr-6"
+        path="$sectionData.avatar" />
+      <div class="text-center md:text-left">
+        <h2
+          v-styler="$sectionData.name"
+          class="text-lg"
+          v-html="$sectionData.name"/>
+        <div
+          v-styler:text="$sectionData.role"
+          class="text-purple-500"
+          v-html="$sectionData.role"/>
+        <div
+          v-styler:text="$sectionData.email"
+          class="text-gray-600"
+          v-html="$sectionData.email"/>
+        <div
+          v-styler:text="$sectionData.phone"
+          class="text-gray-600"
+          v-html="$sectionData.phone"/>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-  import { types } from 'v-builder';
+  import { types } from '@iboldurev/v-builder';
 
   export default {
-    name: 'hero1',
-    cover: '../covers/hero1.png',
+    name: 'Section1',
+    cover: 'img/covers/tailwind-twitter-square.png',
+    group: 'Demo',
     $schema: {
-      title: types.Title,
-      content: types.Text,
-      images: [types.Image],
-      button: types.Button,
-      classes: types.ClassList
+      avatar: types.Image,
+      name: types.Name,
+      role: types.Role,
+      email: types.Email,
+      phone: types.Phone
     },
     props: {
       id: {
@@ -84,7 +79,7 @@ After creating the HTML structure, you should configure the section schema to us
 
 ```html
 <script>
-  import { types } from 'v-builder';
+  import { types } from '@iboldurev/v-builder';
 
   export default {
     // section name
@@ -137,7 +132,7 @@ After creating the HTML structure, you should configure the section schema to us
 Until now, we have only been creating our section component, we now need to introduce it to our builder so it can use it:
 
 ```js
-import Builder from 'v-builder';
+import Builder from '@iboldurev/v-builder';
 import section from './components/sections/section';
 
 // Builder has Vue-like API when registering components.

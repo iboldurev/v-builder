@@ -19,21 +19,21 @@ The builder is just a Vue plugin, so you can integrate this into your own projec
 First step is to install it using `yarn` or `npm`:
 
 ```bash
-npm install v-builder
+npm install @iboldurev/v-builder
 
 # or use yarn
-yarn add v-builder
+yarn add @iboldurev/v-builder
 ```
 
 ### CDNs
 
 Or add it as a script tag in your projects.
 
-- [unpkg](https://unpkg.com/v-builder)
+- [unpkg](https://unpkg.com/@iboldurev/v-builder)
 
 ```html
 <script src="https://unpkg.com/vue@2.4.2"></script>
-<script src="https://unpkg.com/v-builder"></script>
+<script src="https://unpkg.com/@iboldurev/v-builder"></script>
 ```
 
 ### Usage
